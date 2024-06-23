@@ -7,3 +7,5 @@ export interface RoomInfo {
     id: string;
     name: string;
 }
+
+export type Conn = WebSocket | null;

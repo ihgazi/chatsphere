@@ -3,20 +3,35 @@
 import { useState, useEffect } from "react";
 import { RoomInfo } from "@/types";
 import getRooms from "./getRooms";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { WebSocketContext } from "@/context/WebSocketContext";
+import { WS_URL } from "@/constants";
+import { useRouter } from "next/navigation";
 
 interface RoomListProps extends React.HTMLAttributes<HTMLDivElement> {
     rooms: RoomInfo[];
     setRooms: (value: RoomInfo[]) => void;
 }
 
-const RoomList: React.FC<RoomListProps> = ({
-    rooms,
-    setRooms,
-}) => {
+const RoomList: React.FC<RoomListProps> = ({ rooms, setRooms }) => {
+    const { user } = useContext(AuthContext);
+    const { setConn } = useContext(WebSocketContext);
+    const router = useRouter();
 
     useEffect(() => {
         getRooms(setRooms);
     }, []);
+
+    const handleJoinRoom = (roomId: string) => {
+        const ws = new WebSocket(
+            `${WS_URL}/ws/joinRoom/${roomId}?userId=${user.id}&username=${user.username}`
+        );
+        if (ws.OPEN) {
+            setConn(ws);
+            router.push("/");
+        }
+    };
 
     return (
         <div className="mt-6">
@@ -30,7 +45,10 @@ const RoomList: React.FC<RoomListProps> = ({
                         <div className="w-full">
                             <h2 className="font-bold">{room.name}</h2>
                         </div>
-                        <button className="bg-blue text-white rounded-md px-4">
+                        <button 
+                            className="bg-blue text-white rounded-md px-4"
+                            onClick={() => handleJoinRoom(room.id)}
+                        >
                             Join
                         </button>
                     </div>
@@ -38,6 +56,6 @@ const RoomList: React.FC<RoomListProps> = ({
             </div>
         </div>
     );
-}
+};
 
 export default RoomList;

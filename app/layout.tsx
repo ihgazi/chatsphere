@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthContextProvider from "@/context/AuthContext";
+import WebSocketProvider from "@/context/WebSocketContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({
 }>) {
     return (
         <AuthContextProvider>
-            <html lang="en">
-                <body className={inter.className}>{children}</body>
-            </html>
+            <WebSocketProvider>
+                <html lang="en">
+                    <body className={inter.className}>{children}</body>
+                </html>
+            </WebSocketProvider>
         </AuthContextProvider>
     );
 }
