@@ -15,7 +15,7 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (authenticated) {
-            router.push("/");
+            router.push("/chat");
         }
     }, [authenticated, router]);
 
