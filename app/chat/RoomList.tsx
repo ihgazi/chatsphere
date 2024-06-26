@@ -29,7 +29,7 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, setRooms }) => {
         );
         if (ws.OPEN) {
             setConn(ws);
-            router.push("/");
+            router.push(`/chat/${roomId}`);
         }
     };
 

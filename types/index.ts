@@ -8,4 +8,11 @@ export interface RoomInfo {
     name: string;
 }
 
+export interface Message {
+    content: string;
+    username: string;
+    room_id: string;
+    user_id: string;
+}
+
 export type Conn = WebSocket | null;
