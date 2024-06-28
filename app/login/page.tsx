@@ -6,6 +6,7 @@ import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { UserInfo } from "@/types";
 import { AuthContext } from "@/context/AuthContext";
+import userLogin from "@/services/userLogin"
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -21,30 +22,11 @@ export default function LoginPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        
         try {
-            const res = await fetch("/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await res.json();
-            if (res.ok) {
-                const user: UserInfo = {
-                    username: data.username,
-                    id: data.id,
-                };
-                
-                console.log(user);
-                localStorage.setItem("user", JSON.stringify(user));
-                return router.push("/");
-            }
-        } catch (err) {
-            console.log(err);
-        }
+            userLogin({ email, password });
+            router.push("/chat");
+        } catch (err) {}
     };
 
     return (

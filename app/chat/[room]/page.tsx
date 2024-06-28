@@ -5,7 +5,7 @@ import { Message, UserInfo } from "@/types";
 import ChatBody from "./ChatBody";
 import { WebSocketContext } from "@/context/WebSocketContext";
 import { useRouter } from "next/navigation";
-import getUsers from "./getUsers";
+import getUsers from "@/services/getUsers";
 
 export default function RoomPage({ params }: { params: { room: string } }) {
     const [messages, setMessages] = useState<Message[]>([]);

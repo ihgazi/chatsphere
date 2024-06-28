@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { RoomInfo } from "@/types";
-import getRooms from "./getRooms";
+import getRooms from "@/services/getRooms";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { WebSocketContext } from "@/context/WebSocketContext";
