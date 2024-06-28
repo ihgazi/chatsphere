@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { UserInfo } from "@/types";
 import { useRouter } from "next/navigation";
+import checkAuth from "@/services/checkAuth";
 
 export const AuthContext = React.createContext<{
     authenticated: boolean;
@@ -20,21 +21,22 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [authenticated, setAuthenticated] = React.useState<boolean>(false);
     const [user, setUser] = React.useState<UserInfo>({ id: "", username: "" });
 
-    const router = useRouter(); 
+    const router = useRouter();
 
     useEffect(() => {
-        const userInfo = localStorage.getItem("user");
+        const path = window.location.pathname;
+        if (path === "/login") return;
 
-        if (!userInfo) {
-            if (window.location.pathname !== '/signup') {
+        checkAuth()
+            .then((data) => {
+                setUser(data);
+                setAuthenticated(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                setAuthenticated(false);
                 router.push("/login");
-                return
-            }
-        } else {
-            const user: UserInfo = JSON.parse(userInfo);
-            setUser(user);
-            setAuthenticated(true);
-        }
+            });
     }, [router]);
 
     return (
