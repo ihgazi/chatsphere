@@ -29,10 +29,13 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
             if (!authenticated && window.location.pathname !== "/register") {
                 router.push("/login");
             }
+            else if (authenticated && window.location.pathname === "/login") {
+                router.push("/chat");
+            }
         };
 
         authenticate();
-    }, [router]);
+    }, [router, authenticated]);
 
     return (
         <AuthContext.Provider
