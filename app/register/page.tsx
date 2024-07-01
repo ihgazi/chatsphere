@@ -4,11 +4,12 @@ import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/AuthContext";
-import userLogin from "@/services/userLogin";
+import userRegister from "@/services/userRegister";
 import TextField from "@/components/TextField";
 import InputButton from "@/components/InputButton";
 
 export default function LoginPage() {
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { authenticated } = useContext(AuthContext);
@@ -23,16 +24,21 @@ export default function LoginPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const success = await userLogin({ email, password });
+        const success = await userRegister(username, email, password);
         if (success) {
-            router.push("/chat");
+            router.push("/login");
         }
     };
 
     return (
         <div className="flex items-center justify-center min-w-full min-h-screen">
             <form className="flex flex-col">
-                <p className="text-3xl font-bold text-center"> Login </p>
+                <p className="text-3xl font-bold text-center"> Register </p>
+                <TextField
+                    title={"Username"}
+                    value={username}
+                    setValue={(e: string) => setUsername(e)}
+                />
                 <TextField
                     title={"Email"}
                     value={email}
@@ -43,9 +49,9 @@ export default function LoginPage() {
                     value={password}
                     setValue={(e: string) => setPassword(e)}
                 />
-                <InputButton title="Login" handleSubmit={handleSubmit} />
-                <a href="/register" className="text-center text-blue mt-4">
-                    Register.
+                <InputButton title="Register" handleSubmit={handleSubmit} />
+                <a href="/login" className="text-center text-blue mt-4">
+                    Login.
                 </a>
             </form>
         </div>

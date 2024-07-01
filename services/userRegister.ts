@@ -1,19 +1,13 @@
 import { UserInfo } from "../types";
 
-const userLogin = async ({
-    email,
-    password,
-}: {
-    email: string;
-    password: string;
-}) => {
+const userRegister = async (username: string, email: string, password: string) => {
     try {
-        const res = await fetch("/api/login", {
+        const res = await fetch("/api/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ username, email, password }),
         });
 
         const data = await res.json();
@@ -29,4 +23,4 @@ const userLogin = async ({
     }
 }
 
-export default userLogin;
+export default userRegister
