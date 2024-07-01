@@ -31,7 +31,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="flex items-center justify-center min-w-full min-h-screen">
+        <div className="flex items-center justify-center min-w-full mt-10">
             <form className="flex flex-col">
                 <p className="text-3xl font-bold text-center"> Register </p>
                 <TextField
@@ -50,7 +50,7 @@ export default function LoginPage() {
                     setValue={(e: string) => setPassword(e)}
                 />
                 <InputButton title="Register" handleSubmit={handleSubmit} />
-                <a href="/login" className="text-center text-blue mt-4">
+                <a href="/login" className="text-center text-blue-400 mt-4">
                     Login.
                 </a>
             </form>

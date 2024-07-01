@@ -35,7 +35,7 @@ const RoomCreate: React.FC<RoomCreateProps> = ({ setRooms }) => {
                 onChange={(e) => setRoomName(e.target.value)}
             />
             <button
-                className="bg-blue border text-white rounded-md p-2"
+                className="bg-blue-500 border text-white rounded-md p-2"
                 onClick={handleCreateRoom}
             >
                 Create Room
