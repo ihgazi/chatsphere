@@ -24,19 +24,14 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
 
     useEffect(() => {
-        const path = window.location.pathname;
-        if (path === "/login") return;
-
-        checkAuth()
-            .then((data) => {
-                setUser(data);
-                setAuthenticated(true);
-            })
-            .catch((err) => {
-                console.log(err);
-                setAuthenticated(false);
+        const authenticate = async () => {
+            await checkAuth(setAuthenticated, setUser);
+            if (!authenticated && window.location.pathname !== "/register") {
                 router.push("/login");
-            });
+            }
+        };
+
+        authenticate();
     }, [router]);
 
     return (

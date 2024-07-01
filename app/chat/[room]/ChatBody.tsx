@@ -6,7 +6,6 @@ import { AuthContext } from "@/context/AuthContext";
 
 const ChatBody = ({ data }: { data: Message[] }) => {
     const { user } = useContext(AuthContext);
-    console.log(user);
 
     return (
         <>

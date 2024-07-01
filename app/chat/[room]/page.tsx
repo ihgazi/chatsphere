@@ -17,7 +17,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
 
     useEffect(() => {
         if (conn == null) {
-            router.push("/");
+            router.push("/chat");
             return;
         }
 
@@ -28,7 +28,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
 
     useEffect(() => {
         if (conn == null) {
-            router.push("/");
+            router.push("/chat");
             return;
         }
 
@@ -60,7 +60,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
     const sendMessage = () => {
         if (!textAreaRef.current?.value) return;
         if (conn === null) {
-            router.push('/');
+            router.push('/chat');
             return;
         }
 
