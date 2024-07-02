@@ -5,7 +5,7 @@ import { Message, UserInfo } from "@/types";
 import ChatBody from "./ChatBody";
 import { WebSocketContext } from "@/context/WebSocketContext";
 import { useRouter } from "next/navigation";
-import getUsers from "./getUsers";
+import getUsers from "@/services/getUsers";
 
 export default function RoomPage({ params }: { params: { room: string } }) {
     const [messages, setMessages] = useState<Message[]>([]);
@@ -17,7 +17,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
 
     useEffect(() => {
         if (conn == null) {
-            router.push("/");
+            router.push("/chat");
             return;
         }
 
@@ -28,7 +28,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
 
     useEffect(() => {
         if (conn == null) {
-            router.push("/");
+            router.push("/chat");
             return;
         }
 
@@ -60,7 +60,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
     const sendMessage = () => {
         if (!textAreaRef.current?.value) return;
         if (conn === null) {
-            router.push('/');
+            router.push('/chat');
             return;
         }
 
@@ -72,7 +72,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
         <div className="flex flex-col w-full">
             <ChatBody data={messages} />
             <div className="fixed bottom-0 mt-4 w-full">
-                <div className="flex px-4 py-2 bg-grey rounded-md mx-2">
+                <div className="flex px-4 py-2 bg-grey-300 rounded-md mx-2">
                     <div className="flex w-full mr-4 rounded-md border border-blue">
                         <textarea
                             ref={textAreaRef}
@@ -83,7 +83,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
                     </div>
                     <div className="flex items-center">
                         <button
-                            className="p-2 rounded-md bg-blue text-white"
+                            className="p-2 rounded-md bg-blue-500 text-white"
                             onClick={sendMessage}
                         >
                             Send

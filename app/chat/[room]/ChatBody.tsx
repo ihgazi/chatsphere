@@ -6,7 +6,6 @@ import { AuthContext } from "@/context/AuthContext";
 
 const ChatBody = ({ data }: { data: Message[] }) => {
     const { user } = useContext(AuthContext);
-    console.log(user);
 
     return (
         <>
@@ -21,7 +20,7 @@ const ChatBody = ({ data }: { data: Message[] }) => {
                                 <p className="text-sm">
                                     {message.username}
                                 </p>
-                                <p className="bg-blue text-white rounded-md inline-block px-4 py-1 mt-1">
+                                <p className="bg-blue-500 text-white rounded-md inline-block px-4 py-1 mt-1">
                                     {message.content}
                                 </p>
                             </div>
@@ -37,7 +36,7 @@ const ChatBody = ({ data }: { data: Message[] }) => {
                                 <p className="text-sm">
                                     {message.username}
                                 </p>
-                                <p className="bg-grey rounded-md inline-block px-4 py-1 mt-1">
+                                <p className="bg-gray-200 rounded-md inline-block px-4 py-1 mt-1">
                                     {message.content}
                                 </p>
                             </div>

@@ -7,6 +7,7 @@ export default async function getUsers(
     try {
         const res = await fetch(`/api/ws/getClients/${roomId}`, {
             method: "GET",
+            credentials: "include",
         });
         const data = await res.json();
         console.log("Users in room: " + JSON.stringify(data));

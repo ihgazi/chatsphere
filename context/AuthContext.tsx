@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { UserInfo } from "@/types";
 import { useRouter } from "next/navigation";
+import checkAuth from "@/services/checkAuth";
 
 export const AuthContext = React.createContext<{
     authenticated: boolean;
@@ -20,22 +21,21 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [authenticated, setAuthenticated] = React.useState<boolean>(false);
     const [user, setUser] = React.useState<UserInfo>({ id: "", username: "" });
 
-    const router = useRouter(); 
+    const router = useRouter();
 
     useEffect(() => {
-        const userInfo = localStorage.getItem("user");
-
-        if (!userInfo) {
-            if (window.location.pathname !== '/signup') {
+        const authenticate = async () => {
+            await checkAuth(setAuthenticated, setUser);
+            if (!authenticated && window.location.pathname !== "/register") {
                 router.push("/login");
-                return
             }
-        } else {
-            const user: UserInfo = JSON.parse(userInfo);
-            setUser(user);
-            setAuthenticated(true);
-        }
-    }, [router]);
+            else if (authenticated && window.location.pathname === "/login") {
+                router.push("/chat");
+            }
+        };
+
+        authenticate();
+    }, [router, authenticated]);
 
     return (
         <AuthContext.Provider
