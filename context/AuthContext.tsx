@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { UserInfo } from "@/types";
 import { useRouter } from "next/navigation";
 import checkAuth from "@/services/checkAuth";
@@ -25,12 +25,15 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const authenticate = async () => {
-            await checkAuth(setAuthenticated, setUser);
-            if (!authenticated && window.location.pathname !== "/register") {
-                router.push("/login");
+            const success = await checkAuth(setUser);
+            
+            if (!success) {
+                setAuthenticated(false);
+                if (window.location.pathname !== "/register") router.push("/login");
             }
-            else if (authenticated && window.location.pathname === "/login") {
-                router.push("/chat");
+            else if (success) {
+                setAuthenticated(true);
+                if (window.location.pathname === "/login") router.push("/chat");
             }
         };
 

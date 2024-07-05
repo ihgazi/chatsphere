@@ -1,7 +1,6 @@
 import { UserInfo } from "@/types";
 
 const checkAuth = async (
-    setAuthenticated: (value: boolean) => void,
     setUser: (value: UserInfo) => void
 ) => {
     try {
@@ -11,15 +10,15 @@ const checkAuth = async (
         });
 
         if (res.ok) {
-            setAuthenticated(true);
             const data = await res.json();
             setUser(data);
+            return true;
         } else {
-            setAuthenticated(false);
+            return false;
         }
     } catch (err) {
         console.log(err);
-        setAuthenticated(false);
+        return false;
     }
 };
 

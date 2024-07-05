@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { RoomInfo } from "@/types";
 import getRooms from "@/services/getRooms";
 import createRoom from "@/services/createRoom";

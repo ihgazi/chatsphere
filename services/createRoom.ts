@@ -8,7 +8,6 @@ const createRoom = async ({ roomName }: { roomName: string }) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id: uuidv4(),
                 name: roomName,
             }),
         });
