@@ -25,11 +25,16 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, setRooms }) => {
 
     const handleJoinRoom = (roomId: string) => {
         const ws = new WebSocket(
-            `${WS_URL}/ws/joinRoom/${roomId}`
+            `${WS_URL}/joinRoom/${roomId}?userID=${user.id}&username=${user.username}`
         );
-        if (ws.OPEN) {
+
+        ws.onopen = () => {
             setConn(ws);
             router.push(`/chat/${roomId}`);
+        };
+
+        ws.onerror = (error) => {
+            console.log("Websocket Error:", error);
         }
     };
 
