@@ -16,21 +16,22 @@ interface RoomListProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const RoomList: React.FC<RoomListProps> = ({ rooms, setRooms }) => {
     const { user } = useContext(AuthContext);
-    const { setConn } = useContext(WebSocketContext);
+    const { setConn, setRoom } = useContext(WebSocketContext);
     const router = useRouter();
 
     useEffect(() => {
         getRooms(setRooms);
     }, []);
 
-    const handleJoinRoom = (roomId: string) => {
+    const handleJoinRoom = (room: RoomInfo) => {
         const ws = new WebSocket(
-            `${WS_URL}/joinRoom/${roomId}?userID=${user.id}&username=${user.username}`
+            `${WS_URL}/joinRoom/${room.id}?userID=${user.id}&username=${user.username}`
         );
 
         ws.onopen = () => {
+            setRoom(room);
             setConn(ws);
-            router.push(`/chat/${roomId}`);
+            router.push(`/chat/room`);
         };
 
         ws.onerror = (error) => {
@@ -53,7 +54,7 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, setRooms }) => {
                             </div>
                             <button
                                 className="bg-blue-500 text-white rounded-md px-4"
-                                onClick={() => handleJoinRoom(room.id)}
+                                onClick={() => handleJoinRoom(room)}
                             >
                                 Join
                             </button>

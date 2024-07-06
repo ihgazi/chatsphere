@@ -7,11 +7,11 @@ import { WebSocketContext } from "@/context/WebSocketContext";
 import { useRouter } from "next/navigation";
 import getUsers from "@/services/getUsers";
 
-export default function RoomPage({ params }: { params: { room: string } }) {
+export default function RoomPage() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [users, setUsers] = useState<UserInfo[]>([]);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const { conn } = useContext(WebSocketContext);
+    const { conn, room } = useContext(WebSocketContext);
 
     const router = useRouter();
 
@@ -21,7 +21,7 @@ export default function RoomPage({ params }: { params: { room: string } }) {
             return;
         }
 
-        getUsers(params.room, (value: UserInfo[]) => {
+        getUsers(room.id, (value: UserInfo[]) => {
             setUsers(value);
         });
     }, []);
