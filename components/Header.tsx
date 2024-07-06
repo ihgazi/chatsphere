@@ -2,6 +2,7 @@
 
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
+import { API_URL } from "@/constants";
 
 const Header: React.FC = () => {
     const { authenticated, setUser, setAuthenticated } =
@@ -9,7 +10,11 @@ const Header: React.FC = () => {
 
     const handleLogout = async () => {
         try {
-            const res = await fetch("/api/logout");
+            const res =  await fetch(`${API_URL}/logout`, {
+                method: "GET",
+                credentials: "include",
+            });
+
             if (res.ok) {
                 setUser({ username: "", id: "" });
                 setAuthenticated(false);

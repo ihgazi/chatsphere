@@ -1,9 +1,10 @@
-import { v4 as uuidv4 } from "uuid";
+import { API_URL } from "../constants";
 
 const createRoom = async ({ roomName }: { roomName: string }) => {
     try {
-        const res = await fetch("/api/ws/createRoom", {
+        const res = await fetch(`${API_URL}/ws/createRoom`, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },

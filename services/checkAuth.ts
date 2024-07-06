@@ -1,10 +1,11 @@
 import { UserInfo } from "@/types";
+import { API_URL } from "@/constants";
 
 const checkAuth = async (
     setUser: (value: UserInfo) => void
 ) => {
     try {
-        const res = await fetch("/api/ws/auth", {
+        const res = await fetch(`${API_URL}/ws/auth`, {
             method: "GET",
             credentials: "include",
         });

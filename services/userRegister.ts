@@ -1,8 +1,8 @@
-import { UserInfo } from "../types";
+import { API_URL } from "../constants";
 
 const userRegister = async (username: string, email: string, password: string) => {
     try {
-        const res = await fetch("/api/signup", {
+        const res = await fetch(`${API_URL}/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

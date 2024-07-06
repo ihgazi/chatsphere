@@ -1,8 +1,9 @@
 import { RoomInfo } from "@/types";
+import { API_URL } from "@/constants";
 
 const getRooms = async (setRooms: (value: RoomInfo[]) => void) => {
     try {
-        const res = await fetch("/api/ws/getRooms", {
+        const res = await fetch(`${API_URL}/ws/getRooms`, {
             method: "GET",
             credentials: "include",
         });

@@ -1,4 +1,4 @@
-import { UserInfo } from "../types";
+import { API_URL } from "../constants";
 
 const userLogin = async ({
     email,
@@ -8,11 +8,12 @@ const userLogin = async ({
     password: string;
 }) => {
     try {
-        const res = await fetch("/api/login", {
+        const res = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({ email, password }),
         });
 
@@ -27,6 +28,6 @@ const userLogin = async ({
         console.log(err);
         return false;
     }
-}
+};
 
 export default userLogin;

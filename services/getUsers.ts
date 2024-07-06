@@ -1,11 +1,12 @@
 import { UserInfo } from "@/types";
+import { API_URL } from "@/constants";
 
 export default async function getUsers(
     roomId: string,
     setUsers: (value: UserInfo[]) => void
 ) {
     try {
-        const res = await fetch(`/api/ws/getClients/${roomId}`, {
+        const res = await fetch(`${API_URL}/ws/getClients/${roomId}`, {
             method: "GET",
             credentials: "include",
         });
