@@ -9,10 +9,8 @@ import getUsers from "@/services/getUsers";
 
 export default function RoomPage() {
     const [messages, setMessages] = useState<Message[]>([]);
-    const [users, setUsers] = useState<UserInfo[]>([]);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const { conn, room } = useContext(WebSocketContext);
-
+    const { conn, room, users, setUsers } = useContext(WebSocketContext);
     const router = useRouter();
 
     useEffect(() => {
