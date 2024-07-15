@@ -11,7 +11,7 @@ const RoomSettings: React.FC<SettingsProps> = ({ setOpen }) => {
 
     return (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="p-8 bg-white w-full max-w-md m-auto rounded-md">
+            <div className="p-8 bg-white w-full max-w-md m-auto rounded-md mx-4">
                 <div className="flex">
                     <h1 className="text-xl font-bold">{`Room Information`}</h1>
                     <button className="ml-auto" onClick={() => setOpen()}>

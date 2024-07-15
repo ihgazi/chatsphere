@@ -30,18 +30,18 @@ const Header: React.FC = () => {
     };
 
     return (
-        <div className="flex h-fit w-full px-4 py-2 bg-slate-200">
-            <h1 className="text-2xl my-auto"> ChatSphere </h1>
+        <div className="flex h-fit w-full px-2 md:px-4 py-2 bg-slate-200 items-center">
+            <h1 className="text-lg md:text-2xl my-auto"> ChatSphere </h1>
             {conn && (
                 <button
-                    className="flex flex-col ml-10 text-left"
+                    className="flex flex-col ml-3 md:ml-10 text-left"
                     onClick={() => setModalOpen(true)}
                 >
-                    <p className="text-md">
+                    <p className="text-sm md:text-md">
                         {" "}
                         {`${room.name}: ${users.length} online`}{" "}
                     </p>
-                    <p className="text-sm font-medium text-blue-500">
+                    <p className="text-xs md:text-sm font-medium text-blue-500">
                         {" "}
                         {`Tap to view more details`}{" "}
                     </p>
@@ -49,7 +49,7 @@ const Header: React.FC = () => {
             )}
             {authenticated && (
                 <button
-                    className="ml-auto bg-red-500 rounded-md p-2 text-white"
+                    className="ml-auto bg-red-500 rounded-md p-2 text-white h-fit"
                     onClick={handleLogout}
                 >
                     Logout
