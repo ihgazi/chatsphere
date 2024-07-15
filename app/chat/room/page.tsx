@@ -6,11 +6,13 @@ import ChatBody from "./ChatBody";
 import { WebSocketContext } from "@/context/WebSocketContext";
 import { useRouter } from "next/navigation";
 import getUsers from "@/services/getUsers";
+import RoomSettings from "@/components/RoomSettings";
 
 export default function RoomPage() {
     const [messages, setMessages] = useState<Message[]>([]);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const { conn, room, users, setUsers } = useContext(WebSocketContext);
+    const { conn, room, users, modalOpen, setModalOpen, setUsers } = useContext(WebSocketContext);
+
     const router = useRouter();
 
     useEffect(() => {
@@ -68,6 +70,7 @@ export default function RoomPage() {
 
     return (
         <div className="flex flex-col w-full">
+            {modalOpen && <RoomSettings setOpen={() => setModalOpen(false)}/>}
             <ChatBody data={messages} />
             <div className="fixed bottom-0 mt-4 w-full">
                 <div className="flex px-4 py-2 bg-grey-300 rounded-md mx-2">
