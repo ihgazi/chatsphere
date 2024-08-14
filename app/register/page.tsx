@@ -24,9 +24,13 @@ export default function LoginPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const success = await userRegister(username, email, password);
-        if (success) {
-            router.push("/login");
+        if (username && email && password) {
+            const success = await userRegister(username, email, password);
+            if (success) {
+                router.push("/login");
+            }
+        } else {
+            alert("Please fill in all fields");
         }
     };
 

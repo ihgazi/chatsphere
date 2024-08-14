@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import Header from "@/components/Header" 
+import Header from "@/components/Header";
 import AuthContextProvider from "@/context/AuthContext";
 import WebSocketProvider from "@/context/WebSocketContext";
+
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +27,11 @@ export default function RootLayout({
                     <body className={inter.className}>
                         <Header />
                         {children}
+                        <Toaster
+                            position="top-center"
+                            reverseOrder={false}
+                            gutter={8}
+                        />
                     </body>
                 </html>
             </WebSocketProvider>

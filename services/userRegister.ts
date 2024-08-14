@@ -1,5 +1,7 @@
 import { API_URL } from "../constants";
 
+import toast from "react-hot-toast";
+
 const userRegister = async (username: string, email: string, password: string) => {
     try {
         const res = await fetch(`${API_URL}/signup`, {
@@ -15,6 +17,7 @@ const userRegister = async (username: string, email: string, password: string) =
             return true;
         } else {
             console.log(data);
+            toast.error(data.error);
             return false;
         }
     } catch (err) {

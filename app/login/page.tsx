@@ -6,6 +6,7 @@ import { AuthContext } from "@/context/AuthContext";
 import userLogin from "@/services/userLogin";
 import TextField from "@/components/TextField";
 import InputButton from "@/components/InputButton";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -15,10 +16,15 @@ export default function LoginPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const success = await userLogin({ email, password });
+        if (email && password) {
+            const success = await userLogin({ email, password });
 
-        if (success) {
-            setAuthenticated(true);
+            if (success) {
+                setAuthenticated(true);
+            }
+        }
+        else {
+            toast.error("Please fill in all fields.");
         }
     };
 

@@ -1,5 +1,7 @@
 import { API_URL } from "../constants";
 
+import toast from "react-hot-toast";
+
 const userLogin = async ({
     email,
     password,
@@ -8,7 +10,7 @@ const userLogin = async ({
     password: string;
 }) => {
     try {
-        const res = await fetch(`${API_URL}/login`, {
+        const promise = fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -16,14 +18,17 @@ const userLogin = async ({
             credentials: "include",
             body: JSON.stringify({ email, password }),
         });
+        
+        toast.promise(promise, {
+            loading: "Logging in...",
+            success: "Logged in!",
+            error: "Invalid Credentials"
+        });
 
+        const res = await promise;
         const data = await res.json();
-        if (res.ok) {
-            return true;
-        } else {
-            console.log(data);
-            return false;
-        }
+        console.log(data);
+        return true;
     } catch (err) {
         console.log(err);
         return false;
