@@ -25,13 +25,15 @@ export default function RootLayout({
             <WebSocketProvider>
                 <html lang="en">
                     <body className={inter.className}>
-                        <Header />
-                        {children}
-                        <Toaster
-                            position="top-center"
-                            reverseOrder={false}
-                            gutter={8}
-                        />
+                        <div className="h-screen flex flex-col">
+                            <Header />
+                            {children}
+                            <Toaster
+                                position="top-center"
+                                reverseOrder={false}
+                                gutter={8}
+                            />
+                        </div>
                     </body>
                 </html>
             </WebSocketProvider>

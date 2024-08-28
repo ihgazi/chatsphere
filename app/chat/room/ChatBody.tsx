@@ -8,7 +8,7 @@ const ChatBody = ({ data }: { data: Message[] }) => {
     const { user } = useContext(AuthContext);
 
     return (
-        <>
+        <div className="w-full flex-grow overflow-y-auto">
             {data.map((message, index) => {
                 if (message.user_id === user.id) {
                     return (
@@ -44,7 +44,7 @@ const ChatBody = ({ data }: { data: Message[] }) => {
                     );
                 }
             })}
-        </>
+        </div>
     );
 };
 
