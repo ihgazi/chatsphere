@@ -14,13 +14,13 @@ export const WebSocketContext = createContext<{
     setModalOpen: (b: boolean) => void;
 }>({
     conn: null,
-    setConn: () => {},
+    setConn: () => { },
     room: { id: "", name: "" },
-    setRoom: () => {},
+    setRoom: () => { },
     users: [],
-    setUsers: () => {},
+    setUsers: () => { },
     modalOpen: false,
-    setModalOpen: () => {},
+    setModalOpen: () => { },
 });
 
 const WebSocketProvider = ({ children }: { children: React.ReactNode }) => {

@@ -4,9 +4,21 @@ import React from "react";
 import RoomList from "./RoomList";
 import RoomCreate from "./RoomCreate";
 import { RoomInfo } from "@/types";
+import { WebSocketContext } from "@/context/WebSocketContext";
+import { useContext, useEffect } from "react";
 
 export default function ChatPage() {
     const [rooms, setRooms] = React.useState<RoomInfo[]>([]);
+    const { conn, users, setConn, setUsers } = useContext(WebSocketContext);
+
+    useEffect(() => {
+        if (conn != null && users.length !== 0) {
+            conn.close();
+            setConn(null);
+            setUsers([]);
+            console.log("Navigated away from chat page, closing connection.");
+        }
+    }, [conn, users, setConn])
 
     return (
         <>

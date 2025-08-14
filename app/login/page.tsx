@@ -17,10 +17,14 @@ export default function LoginPage() {
         e.preventDefault();
 
         if (email && password) {
-            const success = await userLogin({ email, password });
+            try {
+                const success = await userLogin({ email, password });
 
-            if (success) {
-                setAuthenticated(true);
+                if (success) {
+                    setAuthenticated(true);
+                }
+            } catch (error: any) {
+                toast.error(error.message || "Login failed. Please try again.");
             }
         }
         else {

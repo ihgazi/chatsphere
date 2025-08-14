@@ -52,11 +52,11 @@ export default function RoomPage() {
             setMessages([...messages, data]);
         };
         // TODO: Implement onclose event
-        conn.onclose = () => {};
+        conn.onclose = () => { };
 
-        conn.onerror = () => {};
+        conn.onerror = () => { };
 
-        conn.onopen = () => {};
+        conn.onopen = () => { };
     }, [textAreaRef, messages, conn, users]);
 
     const sendMessage = () => {

@@ -9,30 +9,23 @@ const userLogin = async ({
     email: string;
     password: string;
 }) => {
-    try {
-        const promise = fetch(`${API_URL}/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ email, password }),
-        });
-        
-        toast.promise(promise, {
-            loading: "Logging in...",
-            success: "Logged in!",
-            error: "Invalid Credentials"
-        });
+    const promise = fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+    });
 
-        const res = await promise;
+    const res = await promise;
+    if (!res.ok) {
         const data = await res.json();
-        console.log(data);
-        return true;
-    } catch (err) {
-        console.log(err);
-        return false;
+        throw new Error(data.error || "Invalid Credentials");
     }
+
+    const data = await res.json();
+    return data;
 };
 
 export default userLogin;
