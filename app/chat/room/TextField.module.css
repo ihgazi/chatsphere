@@ -1,0 +1,29 @@
+@reference "../../globals.css";
+
+.container {
+    @apply w-full;
+}
+
+.inputWrapper {
+    @apply flex px-4 py-2 bg-gray-100 rounded-xl mx-2 shadow-inner;
+}
+
+.textareaContainer {
+    @apply flex w-full mr-4;
+}
+
+.textarea {
+    @apply w-full h-12 p-3 bg-transparent rounded-md focus:outline-none resize-none;
+}
+
+.buttonContainer {
+    @apply flex items-center;
+}
+
+.sendButton {
+    @apply p-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors;
+}
+
+.icon {
+    @apply h-5 w-5 transform rotate-90;
+}

@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { WebSocketContext } from "@/context/WebSocketContext";
 import { API_URL } from "@/constants";
+import styles from "./Header.module.css";
 
 const Header: React.FC = () => {
     const { authenticated, setUser, setAuthenticated } =
@@ -25,7 +26,7 @@ const Header: React.FC = () => {
             });
 
             if (res.ok) {
-                setUser({ username: "", id: "" });
+                setUser({ username: "", id: "", is_online: false });
                 setAuthenticated(false);
 
                 if (conn) conn.close();
@@ -43,11 +44,11 @@ const Header: React.FC = () => {
     };
 
     return (
-        <div className="flex h-fit w-full px-2 md:px-4 py-2 bg-slate-200 items-center">
-            <h1 className="text-lg md:text-2xl my-auto font-bold text-gray-800"> ChatSphere </h1>
+        <div className={styles.headerContainer}>
+            <h1 className={styles.title}> ChatSphere </h1>
             {authenticated && (
                 <button
-                    className="ml-auto bg-red-500 hover:bg-red-600 transition-colors rounded-md px-4 py-2 text-white h-fit font-medium"
+                    className={styles.logoutBtn}
                     onClick={handleLogout}
                 >
                     Logout

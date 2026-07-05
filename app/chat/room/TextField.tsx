@@ -3,6 +3,7 @@
 import { useContext, useRef } from "react";
 import { WebSocketContext } from "@/context/WebSocketContext";
 import { AuthContext } from "@/context/AuthContext";
+import styles from "./TextField.module.css";
 
 const TextField = () => {
     const { conn, activeRoomId } = useContext(WebSocketContext);
@@ -31,23 +32,23 @@ const TextField = () => {
     };
 
     return (
-        <div className="w-full">
-            <div className="flex px-4 py-2 bg-gray-100 rounded-xl mx-2 shadow-inner">
-                <div className="flex w-full mr-4">
+        <div className={styles.container}>
+            <div className={styles.inputWrapper}>
+                <div className={styles.textareaContainer}>
                     <textarea
                         ref={textAreaRef}
                         placeholder="Type your message here..."
-                        className="w-full h-12 p-3 bg-transparent rounded-md focus:outline-none resize-none"
+                        className={styles.textarea}
                         onKeyDown={handleEnter}
                         rows={1}
                     />
                 </div>
-                <div className="flex items-center">
+                <div className={styles.buttonContainer}>
                     <button
-                        className="p-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                        className={styles.sendButton}
                         onClick={sendMessage}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                         </svg>
                     </button>

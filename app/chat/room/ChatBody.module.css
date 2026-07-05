@@ -1,0 +1,29 @@
+@reference "../../globals.css";
+
+.container {
+    @apply w-full flex-grow overflow-y-auto;
+}
+
+.messageContainerRight {
+    @apply flex justify-end mt-2 w-full text-right px-4;
+}
+
+.messageContainerLeft {
+    @apply flex flex-col justify-start mt-2 w-full text-left px-4;
+}
+
+.messageWrapper {
+    @apply flex flex-col w-fit;
+}
+
+.username {
+    @apply text-sm;
+}
+
+.bubbleRight {
+    @apply bg-blue-500 text-white rounded-md inline-block px-4 py-1 mt-1;
+}
+
+.bubbleLeft {
+    @apply bg-gray-200 text-gray-800 rounded-md inline-block px-4 py-1 mt-1;
+}

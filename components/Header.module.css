@@ -1,0 +1,11 @@
+@reference "../app/globals.css";
+
+.headerContainer {
+    @apply flex h-fit w-full px-2 md:px-4 py-2 bg-slate-200 items-center;
+}
+.title {
+    @apply text-lg md:text-2xl my-auto font-bold text-gray-800;
+}
+.logoutBtn {
+    @apply ml-auto bg-red-500 hover:bg-red-600 transition-colors rounded-md px-4 py-2 text-white h-fit font-medium;
+}

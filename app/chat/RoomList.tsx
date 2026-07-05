@@ -6,6 +6,7 @@ import getRooms from "@/services/getRooms";
 import joinRoom from "@/services/joinRoom";
 import getMyRooms from "@/services/getMyRooms";
 import { WebSocketContext } from "@/context/WebSocketContext";
+import styles from "./RoomList.module.css";
 
 interface RoomListProps extends React.HTMLAttributes<HTMLDivElement> {
     rooms: RoomInfo[];
@@ -33,21 +34,21 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, setRooms, onJoin }) => {
     };
 
     return (
-        <div className="mt-2">
-            <h1 className="font-bold text-gray-700 mb-4">Available Rooms</h1>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={styles.container}>
+            <h1 className={styles.title}>Available Rooms</h1>
+            <div className={styles.grid}>
                 {Array.isArray(rooms) &&
                     rooms.map((room, index) => (
                         <div
                             key={index}
-                            className="w-full rounded-lg flex border border-blue-200 bg-blue-50 items-center p-4 hover:shadow-md transition-shadow"
+                            className={styles.roomCard}
                         >
-                            <div className="w-full">
-                                <h2 className="font-bold text-blue-900">{room.name}</h2>
-                                <p className="text-xs text-gray-500">#{room.id}</p>
+                            <div className={styles.roomInfo}>
+                                <h2 className={styles.roomName}>{room.name}</h2>
+                                <p className={styles.roomId}>#{room.id}</p>
                             </div>
                             <button
-                                className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 text-sm font-medium transition-colors"
+                                className={styles.joinButton}
                                 onClick={() => handleJoinRoom(room)}
                             >
                                 Join

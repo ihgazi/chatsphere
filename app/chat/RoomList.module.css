@@ -1,0 +1,33 @@
+@reference "../globals.css";
+
+.container {
+    @apply mt-2;
+}
+
+.title {
+    @apply font-bold text-gray-700 mb-4;
+}
+
+.grid {
+    @apply w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+.roomCard {
+    @apply w-full rounded-lg flex border border-blue-200 bg-blue-50 items-center p-4 hover:shadow-md transition-shadow;
+}
+
+.roomInfo {
+    @apply w-full;
+}
+
+.roomName {
+    @apply font-bold text-blue-900;
+}
+
+.roomId {
+    @apply text-xs text-gray-500;
+}
+
+.joinButton {
+    @apply bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 text-sm font-medium transition-colors;
+}

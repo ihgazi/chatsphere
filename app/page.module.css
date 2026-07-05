@@ -1,0 +1,61 @@
+@reference "./globals.css";
+
+.main {
+    @apply relative flex flex-col min-h-screen font-sans justify-center items-center overflow-hidden bg-slate-50;
+}
+
+.orb1 {
+    @apply absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-200 rounded-full mix-blend-multiply filter blur-[120px] opacity-60 animate-pulse;
+}
+
+.orb2 {
+    @apply absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-200 rounded-full mix-blend-multiply filter blur-[120px] opacity-60 animate-pulse;
+    animation-delay: 2s;
+}
+
+.orb3 {
+    @apply absolute top-[20%] right-[20%] w-[300px] h-[300px] bg-cyan-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-50 animate-pulse;
+    animation-delay: 1s;
+}
+
+.gridOverlay {
+    @apply absolute inset-0 pointer-events-none;
+    background-image: linear-gradient(to right, #0000000a 1px, transparent 1px), linear-gradient(to bottom, #0000000a 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.contentWrapper {
+    @apply relative z-10 flex flex-col items-center text-center px-4 max-w-4xl;
+}
+
+.badge {
+    @apply mb-6 px-5 py-2 rounded-full border border-blue-200 bg-blue-50 shadow-sm transform transition-transform hover:scale-105 cursor-default;
+}
+
+.badgeText {
+    @apply text-sm font-semibold tracking-wide text-blue-700 uppercase;
+}
+
+.heroTitle {
+    @apply text-6xl md:text-8xl font-extrabold tracking-tight text-slate-900 drop-shadow-sm mb-6 pb-2;
+}
+
+.heroTitleHighlight {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600;
+}
+
+.subtitle {
+    @apply text-lg md:text-xl text-slate-600 mb-10 max-w-2xl leading-relaxed;
+}
+
+.buttonGroup {
+    @apply flex flex-col sm:flex-row gap-5 w-full sm:w-auto;
+}
+
+.primaryButton {
+    @apply px-10 py-4 bg-blue-600 text-white font-bold rounded-xl text-lg transition-all duration-300 hover:scale-105 hover:bg-blue-700 hover:shadow-lg flex items-center justify-center shadow-md;
+}
+
+.secondaryButton {
+    @apply px-10 py-4 bg-white border border-slate-300 text-slate-700 font-bold rounded-xl text-lg transition-all duration-300 hover:bg-slate-50 hover:border-slate-400 hover:scale-105 hover:shadow-md flex items-center justify-center shadow-sm;
+}
