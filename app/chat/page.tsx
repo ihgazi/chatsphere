@@ -47,24 +47,35 @@ export default function ChatPage() {
         }
     }, [authenticated, conn, setConn, setMyRooms]);
 
+    const activeRoomIdRef = React.useRef(activeRoomId);
     useEffect(() => {
-        if (conn) {
-            conn.onmessage = (messageEvent) => {
-                const data: Message = JSON.parse(messageEvent.data);
-                
-                setMessages(prev => {
-                    const roomMsgs = prev[data.room_id] || [];
-                    return { ...prev, [data.room_id]: [...roomMsgs, data] };
-                });
+        activeRoomIdRef.current = activeRoomId;
+    }, [activeRoomId]);
 
-                if (data.content === "A new user has joined the room" || data.content === "user has left the chat") {
-                    if (activeRoomId === data.room_id) {
-                        getUsers(activeRoomId, setUsers);
-                    }
+    useEffect(() => {
+        if (!conn) return;
+
+        const handleMessage = (messageEvent: MessageEvent) => {
+            const data: Message = JSON.parse(messageEvent.data);
+
+            setMessages(prev => {
+                const roomMsgs = prev[data.room_id] || [];
+                return { ...prev, [data.room_id]: [...roomMsgs, data] };
+            });
+
+            if (data.type === "system" && (data.event === "user_joined" || data.event === "user_left")) {
+                if (activeRoomIdRef.current === data.room_id) {
+                    getUsers(activeRoomIdRef.current, setUsers);
                 }
-            };
-        }
-    }, [conn, setMessages, activeRoomId, setUsers]);
+            }
+        };
+
+        conn.addEventListener("message", handleMessage);
+
+        return () => {
+            conn.removeEventListener("message", handleMessage);
+        };
+    }, [conn, setMessages, setUsers]);
 
     useEffect(() => {
         if (activeRoomId) {

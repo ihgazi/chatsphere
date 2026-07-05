@@ -11,7 +11,15 @@ const ChatBody = ({ data }: { data: Message[] }) => {
     return (
         <div className={styles.container}>
             {data.map((message, index) => {
-                if (String(message.user_id) === String(user.id)) {
+                if (message.type === "system" && message.event === "user_joined") {
+                    return (
+                        <div key={index} className={styles.messageContainerSystem}>
+                            <p className={styles.bubbleSystem}>
+                                {message.username} has joined the room.
+                            </p>
+                        </div>
+                    );
+                } else if (String(message.user_id) === String(user.id)) {
                     return (
                         <div
                             key={index}

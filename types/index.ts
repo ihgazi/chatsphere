@@ -10,6 +10,8 @@ export interface RoomInfo {
 }
 
 export interface Message {
+    type?: string;
+    event?: string;
     content: string;
     username: string;
     room_id: string;
