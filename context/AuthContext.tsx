@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { UserInfo } from "@/types";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import checkAuth from "@/services/checkAuth";
 
 export const AuthContext = React.createContext<{
@@ -12,34 +12,45 @@ export const AuthContext = React.createContext<{
     setUser: (user: UserInfo) => void;
 }>({
     authenticated: false,
-    setAuthenticated: () => {},
-    user: { id: "", username: "" },
-    setUser: () => {},
+    setAuthenticated: () => { },
+    user: { id: "", username: "", is_online: false },
+    setUser: () => { },
 });
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [authenticated, setAuthenticated] = React.useState<boolean>(false);
-    const [user, setUser] = React.useState<UserInfo>({ id: "", username: "" });
+    const [authenticated, setAuthenticated] = useState<boolean>(false);
+    const [user, setUser] = useState<UserInfo>({ id: "", username: "", is_online: false });
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
     const router = useRouter();
+    const pathname = usePathname();
 
+    // Check authentication once when the app mounts
     useEffect(() => {
-        if (window.location.pathname === "/") router.push("/login");
-        const authenticate = async () => {
+        const initAuth = async () => {
             const success = await checkAuth(setUser);
- 
-            if (!success) {
-                setAuthenticated(false);
-                if (window.location.pathname !== "/register") router.push("/login");
-            }
-            else if (success) {
-                setAuthenticated(true);
-                if (window.location.pathname === "/login") router.push("/chat");
-            }
+            setAuthenticated(success);
+            setIsCheckingAuth(false);
         };
+        initAuth();
+    }, []);
 
-        authenticate();
-    }, [router, authenticated]);
+    // Handle redirects based on auth state and current route
+    useEffect(() => {
+        if (isCheckingAuth) return;
+
+        if (authenticated) {
+            // If they are logged in and on a public page, send them to chat
+            if (pathname === "/" || pathname === "/login" || pathname === "/register") {
+                router.push("/chat");
+            }
+        } else {
+            // If they are NOT logged in and trying to access a protected page, send them to login
+            if (pathname !== "/" && pathname !== "/login" && pathname !== "/register") {
+                router.push("/login");
+            }
+        }
+    }, [authenticated, isCheckingAuth, pathname, router]);
 
     return (
         <AuthContext.Provider

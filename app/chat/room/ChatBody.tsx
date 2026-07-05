@@ -10,7 +10,7 @@ const ChatBody = ({ data }: { data: Message[] }) => {
     return (
         <div className="w-full flex-grow overflow-y-auto">
             {data.map((message, index) => {
-                if (message.user_id === user.id) {
+                if (String(message.user_id) === String(user.id)) {
                     return (
                         <div
                             key={index}

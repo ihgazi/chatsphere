@@ -1,13 +1,17 @@
 "use client";
 
 import React, { useState, createContext } from "react";
-import { Conn, RoomInfo, UserInfo } from "@/types";
+import { Conn, RoomInfo, UserInfo, Message } from "@/types";
 
 export const WebSocketContext = createContext<{
     conn: Conn;
     setConn: (c: Conn) => void;
-    room: RoomInfo;
-    setRoom: (r: RoomInfo) => void;
+    activeRoomId: string | null;
+    setActiveRoomId: (id: string | null) => void;
+    myRooms: RoomInfo[];
+    setMyRooms: (rooms: RoomInfo[]) => void;
+    messages: Record<string, Message[]>;
+    setMessages: React.Dispatch<React.SetStateAction<Record<string, Message[]>>>;
     users: UserInfo[];
     setUsers: (u: UserInfo[]) => void;
     modalOpen: boolean;
@@ -15,8 +19,12 @@ export const WebSocketContext = createContext<{
 }>({
     conn: null,
     setConn: () => { },
-    room: { id: "", name: "" },
-    setRoom: () => { },
+    activeRoomId: null,
+    setActiveRoomId: () => { },
+    myRooms: [],
+    setMyRooms: () => { },
+    messages: {},
+    setMessages: () => { },
     users: [],
     setUsers: () => { },
     modalOpen: false,
@@ -25,7 +33,9 @@ export const WebSocketContext = createContext<{
 
 const WebSocketProvider = ({ children }: { children: React.ReactNode }) => {
     const [conn, setConn] = useState<Conn>(null);
-    const [room, setRoom] = useState<RoomInfo>({ id: "", name: "" });
+    const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
+    const [myRooms, setMyRooms] = useState<RoomInfo[]>([]);
+    const [messages, setMessages] = useState<Record<string, Message[]>>({});
     const [users, setUsers] = useState<UserInfo[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -34,8 +44,12 @@ const WebSocketProvider = ({ children }: { children: React.ReactNode }) => {
             value={{
                 conn,
                 setConn,
-                room,
-                setRoom,
+                activeRoomId,
+                setActiveRoomId,
+                myRooms,
+                setMyRooms,
+                messages,
+                setMessages,
                 users,
                 setUsers,
                 modalOpen,
