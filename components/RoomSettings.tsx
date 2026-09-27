@@ -1,36 +1,45 @@
 import { useContext } from "react";
 
 import { WebSocketContext } from "@/context/WebSocketContext";
+import styles from "./RoomSettings.module.css";
 
 interface SettingsProps {
     setOpen: () => void;
 }
 
 const RoomSettings: React.FC<SettingsProps> = ({ setOpen }) => {
-    const { users, room } = useContext(WebSocketContext);
+    const { users, myRooms, activeRoomId } = useContext(WebSocketContext);
+
+    const room = myRooms.find(r => r.id === activeRoomId) || { name: "Unknown", id: "" };
 
     return (
-        <div className="fixed inset-0 z-1 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="p-8 bg-white w-full max-w-md m-auto rounded-md mx-4">
-                <div className="flex">
-                    <h1 className="text-xl font-bold">{`Room Information`}</h1>
-                    <button className="ml-auto" onClick={() => setOpen()}>
-                        <img src="/icon-cross.png" alt={"x"} />
+        <div className={styles.overlay}>
+            <div className={styles.modal}>
+                <div className={styles.header}>
+                    <h1 className={styles.title}>{`Room Information`}</h1>
+                    <button className={styles.closeButton} onClick={() => setOpen()}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                     </button>
                 </div>
-                <div className="flex mt-3 items-center gap-2">
-                    <h2 className="text-lg">{room.name}</h2>
-                    <p className="font-extralight">{`#${room.id}`}</p>
+                <div className={styles.roomInfo}>
+                    <h2 className={styles.roomName}>{room.name}</h2>
+                    <p className={styles.roomId}>{`#${room.id}`}</p>
                 </div>
-                <div className="flex flex-col mt-8 gap-1">
-                    <h3 className="font-bold mb-2">Active Users:</h3>
-                    {users.map((user, index) => {
-                        return (
-                            <p
-                                key={index}
-                            >{`${user.username}     #${user.id}`}</p>
-                        );
-                    })}
+                <div className={styles.membersSection}>
+                    <h3 className={styles.membersTitle}>Members ({users.filter(u => u.is_online).length} online)</h3>
+                    <div className={styles.membersList}>
+                        {[...users].sort((a, b) => (a.is_online === b.is_online ? 0 : a.is_online ? -1 : 1)).map((user, index) => (
+                            <div key={index} className={styles.memberItem}>
+                                <div className={styles.memberInfo}>
+                                    <div className={user.is_online ? styles.statusDotOnline : styles.statusDotOffline}></div>
+                                    <p className={user.is_online ? styles.memberNameOnline : styles.memberNameOffline}>{user.username}</p>
+                                </div>
+                                <p className={styles.memberId}>#{user.id}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

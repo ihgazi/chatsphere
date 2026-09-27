@@ -11,16 +11,17 @@ import toast from "react-hot-toast";
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { setAuthenticated } = useContext(AuthContext);
+    const { setAuthenticated, setUser } = useContext(AuthContext);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (email && password) {
             try {
-                const success = await userLogin({ email, password });
+                const data = await userLogin({ email, password });
 
-                if (success) {
+                if (data) {
+                    setUser(data);
                     setAuthenticated(true);
                 }
             } catch (error: any) {

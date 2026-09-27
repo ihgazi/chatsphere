@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { RoomInfo } from "@/types";
 import getRooms from "@/services/getRooms";
 import createRoom from "@/services/createRoom";
+import styles from "./RoomCreate.module.css";
 
 interface RoomCreateProps extends React.HTMLAttributes<HTMLDivElement> {
     setRooms: (value: RoomInfo[]) => void;
@@ -25,16 +26,16 @@ const RoomCreate: React.FC<RoomCreateProps> = ({ setRooms }) => {
     };
 
     return (
-        <div className="flex justify-center mt-3 p-5 gap-4">
+        <div className={styles.container}>
             <input
                 type="text"
-                className="border-2 border-grey p-2 rounded-md focus:outline-none focus:border-blue"
+                className={styles.input}
                 placeholder="Enter room name"
                 value={roomName}
                 onChange={(e) => setRoomName(e.target.value)}
             />
             <button
-                className="bg-blue-500 border text-white rounded-md p-2"
+                className={styles.button}
                 onClick={handleCreateRoom}
             >
                 Create Room
