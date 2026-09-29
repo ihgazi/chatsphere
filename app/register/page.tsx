@@ -52,6 +52,7 @@ export default function LoginPage() {
                     title={"Password"}
                     value={password}
                     setValue={(e: string) => setPassword(e)}
+                    type="password"
                 />
                 <InputButton title="Register" handleSubmit={handleSubmit} />
                 <a href="/login" className="text-center text-blue-400 mt-4">
